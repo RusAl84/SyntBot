@@ -4,9 +4,9 @@ from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
+#pip install scikit-learn==0.23.2
 
-
-def get_emotion(word_list):
+def getEmotion(word_list):
     csv_file = "./em.csv"
     with open(csv_file) as f_obj:
         reader = csv.DictReader(f_obj, delimiter=',')
@@ -21,9 +21,7 @@ def get_emotion(word_list):
         ('tfidf', TfidfVectorizer('ngramrange=(1,2)')),
         ('clf', RandomForestClassifier())
     ])
-
     text_clf.fit(texts, texts_labels)
-
     stop_words = set(stopwords.words('english') + stopwords.words('russian'))
     word_tokens = word_tokenize(word_list)
     filtered_words = [w for w in word_tokens if not w in stop_words]
